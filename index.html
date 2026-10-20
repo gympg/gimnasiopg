@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Mi progreso</title>
+<style>
+  html,body{margin:0;height:100%;overflow:hidden;background:#0A1430}
+  iframe{position:fixed;inset:0;width:100%;height:100%;border:0;display:block}
+  .cargando{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#94A3C8;font:15px "Segoe UI",system-ui,sans-serif}
+  .cargando img{width:96px;height:96px;object-fit:contain;animation:p 1.4s ease-in-out infinite}
+  .cargando b{color:#E8EEFF;letter-spacing:1px;font-size:18px}
+  @keyframes p{50%{opacity:.55;transform:scale(.95)}}
+</style>
+</head>
+<body>
+<div class="cargando" id="carga"><img id="logo" alt=""><b id="nombre"></b><span>Cargando…</span></div>
+<script>
+  /* ======================= CONFIGURA AQUÍ ======================= */
+  var APP    = 'https://script.google.com/macros/s/PEGA_AQUI_TU_ID/exec'; // URL /exec de tu app
+  var NOMBRE = 'MI GIMNASIO';
+  var LOGO   = '';            // ej.: 'logo.png' si subes tu logo a este mismo repositorio. Vacío = ícono por defecto
+  var FONDO  = '#0A1430';
+  var ACENTO = '#3FE0C5', ACENTO2 = '#A78BFA';
+  /* ============================================================== */
+
+  if (!LOGO) LOGO = 'data:image/svg+xml,' + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='" + ACENTO + "'/><stop offset='1' stop-color='" + ACENTO2 + "'/></linearGradient></defs><rect width='64' height='64' rx='18' fill='url(#g)'/><path d='M14 27v10M20.5 21v22M43.5 21v22M50 27v10M20.5 32h23' stroke='#0A1430' stroke-width='5.5' stroke-linecap='round'/></svg>");
+  document.title = NOMBRE;
+  document.body.style.background = FONDO;
+  document.getElementById('logo').src = LOGO;
+  document.getElementById('nombre').textContent = NOMBRE;
+  var ic = document.createElement('link'); ic.rel = 'icon'; ic.href = LOGO; document.head.appendChild(ic);
+  var ap = document.createElement('link'); ap.rel = 'apple-touch-icon'; ap.href = LOGO; document.head.appendChild(ap);
+  var tc = document.createElement('meta'); tc.name = 'theme-color'; tc.content = FONDO; document.head.appendChild(tc);
+
+  var f = document.createElement('iframe');
+  f.title = NOMBRE;
+  f.allow = 'clipboard-write';
+  f.src = APP + location.search;          // pasa ?cliente=…, ?registro o ?panel tal cual
+  f.onload = function () { var c = document.getElementById('carga'); if (c) c.remove(); };
+  document.body.appendChild(f);
+</script>
+</body>
+</html>
